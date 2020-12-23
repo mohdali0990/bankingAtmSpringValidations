@@ -1,6 +1,8 @@
 package banking_atm.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,12 +13,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="customer_id")
     private Integer customerId;
+    @NotNull
+    @Size(min=2,message =" First Name is blank. Please provide First Name.")
     @Column(name="first_name")
     private String firstName;
     @Column(name="last_name")
     private String lastName;
     @Column(name="status")
     private String status;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="customer_id", referencedColumnName = "customer_id")

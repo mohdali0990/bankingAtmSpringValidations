@@ -5,7 +5,10 @@ import banking_atm.Exceptions.ApiRequestException;
 import banking_atm.Model.Customer;
 import banking_atm.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -32,7 +35,7 @@ public class CustomerController {
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public String newCheckingAccount(@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastname,@RequestParam("addBalance")Integer addingBalance){
+    public String newCheckingAccount(@Valid @RequestParam("firstname")  String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }

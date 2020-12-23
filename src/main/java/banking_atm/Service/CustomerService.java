@@ -9,6 +9,8 @@ import banking_atm.Repo.CustomerRepo;
 import banking_atm.Repo.SavingAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 

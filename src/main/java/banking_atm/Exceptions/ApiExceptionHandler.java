@@ -2,12 +2,14 @@ package banking_atm.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Date;
 
 
 @RestControllerAdvice
@@ -37,5 +39,14 @@ public class ApiExceptionHandler {
         );
 
         return new ResponseEntity<>(apiException,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+@ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ResponseEntity<?> customValidationErrorHandling(MethodArgumentNotValidException exception){
+
+        ApiException apiException = new ApiException("Validation Error",HttpStatus.INTERNAL_SERVER_ERROR, ZonedDateTime.now(ZoneId.of("Z"))
+
+        );
+
+        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
     }
 }
