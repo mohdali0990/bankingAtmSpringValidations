@@ -1,18 +1,16 @@
 package banking_atm.Controller;
 
-import banking_atm.Exceptions.ApiExceptionHandler;
-import banking_atm.Exceptions.ApiRequestException;
 import banking_atm.Model.Customer;
 import banking_atm.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
+@Validated
 public class CustomerController {
 
     @Autowired

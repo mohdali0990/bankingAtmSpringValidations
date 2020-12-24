@@ -2,10 +2,12 @@ package banking_atm.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -20,7 +22,7 @@ public class ApiExceptionHandler {
 
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                HttpStatus.BAD_REQUEST,
+                "Bad_Request",
                 ZonedDateTime.now(ZoneId.of("Z"))
 
         );
@@ -33,7 +35,7 @@ public class ApiExceptionHandler {
 
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR,
+                e.getLocalizedMessage(),
                 ZonedDateTime.now(ZoneId.of("Z"))
 
         );
@@ -43,9 +45,12 @@ public class ApiExceptionHandler {
 @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseEntity<?> customValidationErrorHandling(MethodArgumentNotValidException exception){
 
-        ApiException apiException = new ApiException("Validation Error",HttpStatus.INTERNAL_SERVER_ERROR, ZonedDateTime.now(ZoneId.of("Z"))
+        ApiException apiException = new ApiException(
+                "Validation Error",
+                exception.getBindingResult().getFieldError().getDefaultMessage(),
+                ZonedDateTime.now(ZoneId.of("Z")));
 
-        );
+
 
         return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
     }
