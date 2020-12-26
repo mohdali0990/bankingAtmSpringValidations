@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping(value ="/id/{id}")
-    public Customer getId(@PathVariable("id")Integer findById) {
+    public Customer getId(@Valid @PathVariable("id")Integer findById) {
         return customerService.getId(findById);
     }
 
@@ -33,7 +34,7 @@ public class CustomerController {
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public String newCheckingAccount(@Valid @RequestParam("firstname")  String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
+    public Customer newCheckingAccount(@Valid @RequestParam("firstname")String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }

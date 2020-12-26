@@ -51,7 +51,8 @@ public class ApiExceptionHandler {
                 ZonedDateTime.now(ZoneId.of("Z")));
 
 
-
         return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
     }
+
+    //getBindingResult().getFieldError().getDefaultMessage(),
 }

@@ -29,7 +29,8 @@ public class CustomerService {
     }
 
     public Customer getId(Integer findById){
-        return customerRepo.findById(findById).orElseThrow(() -> new ApiRequestException("Id does not exist. Please try again."));
+        return customerRepo.findById(findById).get();
+                //.orElseThrow(() -> new ApiRequestException("Id does not exist. Please try again."));
     }
 
     public String newSavingAccount(String firstName, String lastname, Integer addingBalance) {
@@ -52,7 +53,7 @@ public class CustomerService {
         return "Account Created";
     }
 
-    public String newCheckingAccount(String firstName, String lastname, Integer addingBalance) {
+    public Customer newCheckingAccount(String firstName, String lastname, Integer addingBalance) {
 
         CheckingAccount checkingAccount = new CheckingAccount();
         checkingAccount.setBalance(addingBalance);
@@ -69,7 +70,7 @@ public class CustomerService {
 
         customerRepo.save(customer);
 
-        return "Account Created";
+        return customerRepo.findByFirstNameAndLastName(firstName,lastname).get();
     }
 
     public String newCheckingNSavingAccount(String firstName, String lastname, Integer addingBalanceChecking, Integer addingBalanceSaving) {

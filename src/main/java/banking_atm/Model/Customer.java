@@ -12,10 +12,11 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="customer_id")
+    @NotNull(message = " please enter a number")
     private Integer customerId;
-    @NotNull
-    @Size(min=2,message =" First Name is blank. Please provide First Name.")
     @Column(name="first_name")
+    @NotNull
+    @Size (min = 2,message =" First Name is blank. Please provide First Name.")
     private String firstName;
     @Column(name="last_name")
     private String lastName;
