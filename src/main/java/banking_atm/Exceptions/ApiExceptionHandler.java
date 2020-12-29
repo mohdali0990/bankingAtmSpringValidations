@@ -42,17 +42,17 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(apiException,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-@ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<?> customValidationErrorHandling(Exception exception){
+@ExceptionHandler(value = {MethodArgumentNotValidException.class})
+    public ResponseEntity<?> customValidationErrorHandling(MethodArgumentNotValidException exception){
 
         ApiException apiException = new ApiException(
                 "Validation Error",
-                exception.getLocalizedMessage(),
+                exception.getBindingResult().getFieldError().getDefaultMessage(),
                 ZonedDateTime.now(ZoneId.of("Z")));
 
 
         return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
     }
 
-    //getBindingResult().getFieldError().getDefaultMessage(),
+    //
 }
