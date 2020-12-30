@@ -1,6 +1,5 @@
 package banking_atm.Service;
 
-import banking_atm.Exceptions.ApiRequestException;
 import banking_atm.Model.CheckingAccount;
 import banking_atm.Model.Customer;
 import banking_atm.Model.SavingAccount;
@@ -9,6 +8,7 @@ import banking_atm.Repo.CustomerRepo;
 import banking_atm.Repo.SavingAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import java.util.Arrays;
@@ -27,6 +27,7 @@ public class CustomerService {
     public List<Customer> getAll() {
         return customerRepo.findAll();
     }
+
 
     public Customer getId(Integer findById){
         return customerRepo.findById(findById).get();
@@ -104,7 +105,8 @@ public class CustomerService {
 
     public String closeAccount(Integer id) {
 
-        Customer customer = customerRepo.findById(id).orElseThrow(() -> new ApiRequestException("Customer does not exist. Please try again."));
+        Customer customer = customerRepo.findById(id).get();
+                //orElseThrow(() -> new ApiRequestException("Customer does not exist. Please try again."));
         customer.setStatus("inactive");
 
         CheckingAccount checkingAccount = checkingAccountRepo.findByCustomerId(id).get();
@@ -127,7 +129,8 @@ public class CustomerService {
     }
 
     public Customer findByFullName(String firstName,String lastName){
-        return customerRepo.findByFirstNameAndLastName(firstName,lastName).orElseThrow(() -> new ApiRequestException("Name does not exist. Please check and try again."));
+        return customerRepo.findByFirstNameAndLastName(firstName,lastName).get();
+                //.orElseThrow(() -> new ApiRequestException("Name does not exist. Please check and try again."));
     }
 
 

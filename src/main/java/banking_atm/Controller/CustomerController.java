@@ -23,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping(value ="/id/{id}")
-    public Customer getId(@Valid @PathVariable("id")Integer findById) {
+    public Customer getId(@PathVariable("id")Integer findById) {
         return customerService.getId(findById);
     }
 
@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public Customer newCheckingAccount(@Valid @RequestParam("firstname")String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
+    public Customer newCheckingAccount(@NotNull @RequestParam("firstname")String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }
