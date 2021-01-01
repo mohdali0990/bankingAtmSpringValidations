@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -28,13 +29,13 @@ public class CustomerController {
     }
 
     @PostMapping(value ="/newsavingaccount")
-    public String newSavingAccount(@RequestParam("firstName")String firstName,@RequestParam("lastName")String lastname,@RequestParam("addBalance")Integer addingBalance){
+    public String newSavingAccount(@RequestParam("firstName") String firstName, @RequestParam("lastName")String lastname, @RequestParam("addBalance")Integer addingBalance){
 
         return customerService.newSavingAccount(firstName, lastname, addingBalance);
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public Customer newCheckingAccount(@NotNull @RequestParam("firstname")String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
+    public Customer newCheckingAccount(@RequestParam("firstname")@NotEmpty String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }
