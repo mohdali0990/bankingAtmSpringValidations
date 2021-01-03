@@ -5,7 +5,6 @@ import banking_atm.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -24,7 +23,7 @@ public class CustomerController {
     }
 
     @GetMapping(value ="/id/{id}")
-    public Customer getId(@PathVariable("id")@NotNull Integer findById) {
+    public Customer getId(@PathVariable("id")@NotNull(message="this field cannot be empty")Integer findById) {
         return customerService.getId(findById);
     }
 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.ZoneId;
@@ -52,8 +53,7 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {
+   public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e) {
         ApiException apiException = new ApiException(
                 "Validation error",
                 e.getMessage(),
@@ -61,4 +61,16 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<Object>handleMisMatchException(MethodArgumentTypeMismatchException exception){
+        ApiException apiException = new ApiException(
+                "validation error",
+                exception.getLocalizedMessage(),
+                ZonedDateTime.now(ZoneId.of("Z")));
+
+        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
+    }
+
+
 }
