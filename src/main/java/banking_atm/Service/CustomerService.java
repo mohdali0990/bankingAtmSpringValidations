@@ -1,5 +1,6 @@
 package banking_atm.Service;
 
+import banking_atm.Exceptions.ApiRequestException;
 import banking_atm.Model.CheckingAccount;
 import banking_atm.Model.Customer;
 import banking_atm.Model.SavingAccount;
@@ -30,8 +31,7 @@ public class CustomerService {
 
 
     public Customer getId(Integer findById){
-        return customerRepo.findById(findById).get();
-                //.orElseThrow(() -> new ApiRequestException("Id does not exist. Please try again."));
+        return customerRepo.findById(findById).orElseThrow(() -> new ApiRequestException("Id does not exist. Please try again."));
     }
 
     public String newSavingAccount(String firstName, String lastname, Integer addingBalance) {
