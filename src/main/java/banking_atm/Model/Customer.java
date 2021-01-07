@@ -1,6 +1,7 @@
 package banking_atm.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -12,11 +13,9 @@ public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="customer_id")
-    @NotNull(message = " please enter a number")
     private Integer customerId;
     @Column(name="first_name")
-    @NotNull
-    @Size (min = 2,message =" First Name is blank. Please provide First Name.")
+    @Size (min = 2)
     private String firstName;
     @Column(name="last_name")
     private String lastName;

@@ -3,6 +3,7 @@ package banking_atm.Exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -71,6 +72,16 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
     }
+
+//    @ExceptionHandler(MissingServletRequestParameterException.class)
+//    public ResponseEntity<Object>handleparameterException(MissingServletRequestParameterException exception){
+//        ApiException apiException = new ApiException(
+//                "validation error",
+//                exception.getLocalizedMessage(),
+//                ZonedDateTime.now(ZoneId.of("Z")));
+//
+//        return new ResponseEntity<>(apiException,HttpStatus.BAD_REQUEST);
+//    }
 
 
 }
