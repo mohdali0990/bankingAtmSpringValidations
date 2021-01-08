@@ -25,18 +25,18 @@ public class CustomerController {
     }
 
     @GetMapping(value ="/id/{id}")
-    public Customer getId(@PathVariable("id")@NotNull(message="{fieldempty}")Integer findById) {
+    public Customer getId(@PathVariable("id")Integer findById) {
         return customerService.getId(findById);
     }
 
     @PostMapping(value ="/newsavingaccount")
-    public String newSavingAccount(@RequestParam("firstname")@NotEmpty(message="{firstname.notempty}") String firstName, @RequestParam("lastname")@NotEmpty(message="{lastname.notempty}")String lastname, @RequestParam("addbalance")@NotNull(message = "{field.notempty}") Integer addingBalance){
+    public String newSavingAccount(@RequestParam("firstname")@NotEmpty(message="{firstname.notempty}") String firstName, @RequestParam("lastname")@NotEmpty(message="{lastname.notempty}")String lastname, @RequestParam("addbalance")@NotEmpty(message = "{field.notempty}") Integer addingBalance){
 
         return customerService.newSavingAccount(firstName, lastname, addingBalance);
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public Customer newCheckingAccount(@RequestParam("firstname")@NotEmpty(message = "{validation.firstname.notempty}") String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")Integer addingBalance){
+    public Customer newCheckingAccount(@RequestParam("firstname")@NotEmpty(message = "{firstname.notempty}") String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")@NotEmpty(message = "{field.notempty}") Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }

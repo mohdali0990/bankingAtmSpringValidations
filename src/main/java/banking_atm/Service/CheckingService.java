@@ -1,5 +1,6 @@
 package banking_atm.Service;
 
+import banking_atm.Exceptions.ApiRequestException;
 import banking_atm.Model.CheckingAccount;
 import banking_atm.Repo.CheckingAccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,12 @@ public class CheckingService {
     private CheckingAccountRepo checkingAccountRepo;
 
     public List<CheckingAccount> allCheckingAccounts() {
+
         return checkingAccountRepo.findAll();
     }
 
     public CheckingAccount getAccount(Integer id){
-        return checkingAccountRepo.findById(id).get();
+        return checkingAccountRepo.findById(id).orElseThrow(() -> new ApiRequestException("Account does not exist. Please try again."));
     }
 
     public CheckingAccount withdrawal(Integer minusBalance,Integer id){
@@ -30,7 +32,7 @@ public class CheckingService {
         checkingAccount.setNewBalance(newBalance);
         checkingAccountRepo.save(checkingAccount);
 
-        return checkingAccountRepo.findById(id).get();
+        return checkingAccountRepo.findById(id).orElseThrow(() -> new ApiRequestException("Account does not exist. Please try again."));
     }
 
     public CheckingAccount deposit(Integer addBalance,Integer id){
@@ -43,11 +45,11 @@ public class CheckingService {
         checkingAccount.setNewBalance(newBalance);
         checkingAccountRepo.save(checkingAccount);
 
-        return checkingAccountRepo.findById(id).get();
+        return checkingAccountRepo.findById(id).orElseThrow(() -> new ApiRequestException("Account does not exist. Please try again."));
     }
 
     public String closeAccount(Integer id){
-        CheckingAccount checkingAccount = checkingAccountRepo.findById(id).get();
+        CheckingAccount checkingAccount = checkingAccountRepo.findById(id).orElseThrow(()-> new ApiRequestException("Account does not exist. Please try again."));
         checkingAccount.setAddOrMinusBalance(null);
         checkingAccount.setAddOrMinusBalance(null);
         checkingAccount.setNewBalance(null);
@@ -55,7 +57,7 @@ public class CheckingService {
         checkingAccount.setStatus("inactive");
         checkingAccountRepo.save(checkingAccount);
 
-        return "Account Closed";
+        return "account closed";
     }
 
 }
