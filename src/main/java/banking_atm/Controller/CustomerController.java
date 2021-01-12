@@ -36,7 +36,7 @@ public class CustomerController {
     }
 
     @PostMapping(value ="/newcheckingaccount")
-    public Customer newCheckingAccount(@RequestParam("firstname")@NotEmpty(message = "{firstname.notempty}") String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")@NotNull(message = "{field.notempty}") Integer addingBalance){
+    public Customer newCheckingAccount(@RequestParam("firstname")@NotEmpty(message = "{firstname.notempty}") String firstName, @RequestParam("lastname")String lastname, @RequestParam("addbalance")@NotEmpty(message = "{field.notempty}") Integer addingBalance){
 
         return customerService.newCheckingAccount(firstName, lastname, addingBalance);
     }
